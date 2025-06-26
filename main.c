@@ -1,4 +1,5 @@
 #include "lib.h"
+#include "audio_player.h"
 
 int main()
 {
@@ -10,6 +11,9 @@ int main()
     }
     pista *p;
     int cant_pistas=0;
+    fseek(f,0,SEEK_END);//llevo el apuntador al final del archivo
+    long size=ftell(f);
+    rewind(f);
 
     p=read_file(f,&cant_pistas);
     
@@ -18,7 +22,37 @@ int main()
         printf("\nPista %d: %s",i,p[i].enc.sound_name);
     }
 
-    
+    int seleccion;
+    do
+    {
+        printf("\nSeleccione el numero de pista: ");
+        scanf("%d",&seleccion);
+    } while (seleccion<0 || seleccion>3);
+
+    int j=0;
+    while(size>ftell(f))
+    {
+        fread(&(p)[j].muestras,sizeof(float),1,f);
+        j++;
+    }
+
+    for(int i=0; i<seleccion; i++)
+    {
+        
+        if(i!=seleccion)
+        {
+            fseek(f,sizeof(encabezado),SEEK_CUR);
+        }else{
+            fread(&(p)[i].muestras,sizeof(float),1,f);
+        }
+        j++;
+    }
+    float *audio=malloc((p[seleccion].enc.sample_count)*sizeof(float));
+    fread(audio,sizeof(float),p[seleccion].enc.sample_count,f);
+
+    play_audio(p[seleccion].enc.sample_rate, p[seleccion].enc.sample_count, audio);
+
+
 
 
 
