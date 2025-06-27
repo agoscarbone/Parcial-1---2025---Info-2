@@ -15,9 +15,11 @@ pista *read_file(FILE *f,int *cant_pistas)
         {
             fread(&(p)[i].count_of_sounds,sizeof(uint32_t),1,f);
         }
-        fread(&(p)[i].enc.sample_count,sizeof(uint32_t),1,f);
         fread(&(p)[i].enc.sample_rate,sizeof(uint32_t),1,f);
+        fread(&(p)[i].enc.sample_count,sizeof(uint32_t),1,f);
         fread(&(p)[i].enc.sound_name,sizeof(char),64,f);
+        
+        
         //fread(&(p)[i].muestras,sizeof(float),1,f);
         i++;
     }

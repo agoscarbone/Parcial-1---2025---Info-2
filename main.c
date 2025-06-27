@@ -32,7 +32,7 @@ int main()
     int j=0;
     while(size>ftell(f))
     {
-        fread(&(p)[j].muestras,sizeof(float),1,f);
+        fread((p)[j].muestras,sizeof(float),p[j].enc.sample_count,f);
         j++;
     }
 
@@ -49,10 +49,23 @@ int main()
     }
     float *audio=malloc((p[seleccion].enc.sample_count)*sizeof(float));
     fread(audio,sizeof(float),p[seleccion].enc.sample_count,f);
-
+    printf("%u,%u",p[seleccion].enc.sample_rate,p[seleccion].enc.sample_count);
     play_audio(p[seleccion].enc.sample_rate, p[seleccion].enc.sample_count, audio);
 
+    int g;
+    do{
+        printf("\nSeleccione otra pista: ");
+        scanf("%d",g);
+    }while(g<0 || g>3);
+     FILE *t=fopen("sound.raw","wb");
+     if(t == NULL)
+     {
+        printf("ERROR\n");
+        return -1;
+     }
 
+     fwrite(t,sizeof(float),p[g].enc.sample_count,f);
+    
 
 
 
