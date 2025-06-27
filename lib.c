@@ -17,8 +17,9 @@ pista *read_file(FILE *f,int *cant_pistas)
         }
         fread(&(p)[i].enc.sample_rate,sizeof(uint32_t),1,f);
         fread(&(p)[i].enc.sample_count,sizeof(uint32_t),1,f);
+        p[i].muestras = malloc(sizeof(float) * p[i].enc.sample_count);
         fread(&(p)[i].enc.sound_name,sizeof(char),64,f);
-        
+        p[i].muestras = malloc(sizeof(float) * p[i].enc.sample_count);
         
         //fread(&(p)[i].muestras,sizeof(float),1,f);
         i++;

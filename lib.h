@@ -3,7 +3,6 @@
 #include <stdint.h> //para operaciones binarias
 #include <stdlib.h> //para memoria dinamica
 #include <string.h> // para cadenas de caracteres
-#include <stdbool.h> // para verdadero o falso
 
 typedef struct 
 {

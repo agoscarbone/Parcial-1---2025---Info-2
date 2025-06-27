@@ -14,6 +14,7 @@ int main()
     fseek(f,0,SEEK_END);//llevo el apuntador al final del archivo
     long size=ftell(f);
     rewind(f);
+    
 
     p=read_file(f,&cant_pistas);
     
@@ -30,6 +31,8 @@ int main()
     } while (seleccion<0 || seleccion>3);
 
     int j=0;
+    
+
     while(size>ftell(f))
     {
         fread((p)[j].muestras,sizeof(float),p[j].enc.sample_count,f);
@@ -64,11 +67,11 @@ int main()
         return -1;
      }
 
-     fwrite(t,sizeof(float),p[g].enc.sample_count,f);
+     fwrite(p[g].muestras,sizeof(float),p[g].enc.sample_count,t);
     
 
 
-
+    free(audio);
     free(p);
     fclose(f);
     return 0;
