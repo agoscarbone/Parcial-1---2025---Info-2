@@ -33,18 +33,17 @@ int main()
     int j=0;
     
 
-    while(size>ftell(f))
+    /*while(size>ftell(f))
     {
         fread((p)[j].muestras,sizeof(float),p[j].enc.sample_count,f);
         j++;
-    }
+    }*/
 
     for(int i=0; i<seleccion; i++)
     {
-        
         if(i!=seleccion)
         {
-            fseek(f,sizeof(encabezado),SEEK_CUR);
+            fseek(f,p[i].enc.sample_count*sizeof(encabezado),SEEK_CUR);
         }else{
             fread(&(p)[i].muestras,sizeof(float),1,f);
         }
