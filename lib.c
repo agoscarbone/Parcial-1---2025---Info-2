@@ -25,6 +25,6 @@ pista *read_file(FILE *f,int *cant_pistas)
         i++;
     }
     //i=0;
-    *cant_pistas=i;
+    *cant_pistas=p[i].count_of_sounds;
     return p;
 }
